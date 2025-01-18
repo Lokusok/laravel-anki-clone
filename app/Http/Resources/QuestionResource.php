@@ -14,8 +14,9 @@ class QuestionResource extends JsonResource
             'front' => $this->front,
             'back' => $this->back,
             'deck_id' => $this->deck_id,
+            'tags' => TagResource::collection($this->tags),
             'when_ask' => $this->when_ask->format('d.m.Y'),
-            'created_at' => $this->created_at->format('d.m.Y')
+            'created_at' => $this->created_at->format('d.m.Y'),
         ];
     }
 }

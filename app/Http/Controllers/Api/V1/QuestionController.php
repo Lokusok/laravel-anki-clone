@@ -7,21 +7,31 @@ use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Deck;
+use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
-    public function index(Deck $deck)
+    public function index(Request $request, Deck $deck, QuestionRepository $repository)
     {
-        $questions = $deck->questions()->orderBy('created_at', 'DESC')->get();
+        $tag = $request->query('tag');
+
+        $questions = $repository->findByTag([
+            'deck_id' => $deck->id,
+            'tag' => $tag
+        ]);
+
         return QuestionResource::collection($questions);
     }
 
-    public function store(StoreQuestionRequest $request, Deck $deck)
+    public function store(StoreQuestionRequest $request, Deck $deck, QuestionRepository $repository)
     {
         $data = $request->all();
 
-        $question = $deck->questions()->create($data);
+        $data['deck_id'] = $deck->id;
+
+        $question = $repository->create($data);
 
        return QuestionResource::make($question)->response()->setStatusCode(201);
     }
