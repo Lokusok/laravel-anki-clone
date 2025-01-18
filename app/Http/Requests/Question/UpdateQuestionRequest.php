@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Question;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreQuestionRequest extends FormRequest
+class UpdateQuestionRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,8 +16,6 @@ class StoreQuestionRequest extends FormRequest
         return [
             'front' => ['required', 'string'],
             'back' => ['required', 'string'],
-            'tags' => ['array'],
-            'tags.*' => ['string']
         ];
     }
 
@@ -28,14 +26,6 @@ class StoreQuestionRequest extends FormRequest
             'front.string' => 'Вопрос должен быть строкой',
             'back.required' => 'Ответ обязателен',
             'back.string' => 'Ответ должен быть строкой',
-            'tags.*' => 'Теги должны быть строкой'
         ];
-    }
-
-    protected function passedValidation(): void
-    {
-        $this->merge([
-            'when_ask' => now()->addDay()->format(\DateTime::ATOM),
-        ]);
     }
 }

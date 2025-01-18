@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreDeckRequest;
-use App\Http\Requests\UpdateDeckRequest;
+use App\Http\Requests\Deck\StoreDeckRequest;
+use App\Http\Requests\Deck\UpdateDeckRequest;
 use App\Http\Resources\DeckResource;
 use App\Models\Deck;
 use App\Repositories\DeckRepository;
