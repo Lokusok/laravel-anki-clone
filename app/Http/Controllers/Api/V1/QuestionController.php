@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Deck;
 use Illuminate\Http\Request;
@@ -23,6 +24,19 @@ class QuestionController extends Controller
         $question = $deck->questions()->create($data);
 
        return QuestionResource::make($question)->response()->setStatusCode(201);
+    }
+
+    public function update(UpdateQuestionRequest $request, Deck $deck,  string $questionId)
+    {
+        $data = $request->validated();
+
+        $question = $deck->questions()->where('id', $questionId)->first();
+
+        abort_if(! $question, 404, "Вопрос с ID {$questionId} не существует");
+
+        $question->update($data);
+
+        return QuestionResource::make($question);
     }
 
     public function destroy(Deck $deck, string $questionId)

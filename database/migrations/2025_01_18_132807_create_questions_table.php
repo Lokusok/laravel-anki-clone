@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('front')->comment('Вопрос');
             $table->text('back')->comment('Ответ на вопрос');
-            $table->foreignId('deck_id')->constrained('decks', 'id');
+            $table->foreignId('deck_id')->constrained('decks', 'id')->onDelete('cascade');
             $table->date('when_ask');
             $table->timestamps();
         });
