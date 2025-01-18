@@ -35,7 +35,6 @@ class QuestionRepository
                 'deck_id' => $attributes['deck_id'],
             ]);
 
-            $question->stat()->create();
             $question->tags()->sync($tagsIds);
 
             return $question;

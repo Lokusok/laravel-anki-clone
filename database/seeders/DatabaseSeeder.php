@@ -10,9 +10,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Test',
-            'email' => 'test@test.com',
-        ]);
+        $this->call(UserSeeder::class);
+        $this->call(DeckSeeder::class);
+        $this->call(QuestionSeeder::class);
     }
 }

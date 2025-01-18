@@ -16,6 +16,8 @@ class UpdateQuestionRequest extends FormRequest
         return [
             'front' => ['required', 'string'],
             'back' => ['required', 'string'],
+            'tags' => ['array'],
+            'tags.*' => ['string']
         ];
     }
 
@@ -26,6 +28,7 @@ class UpdateQuestionRequest extends FormRequest
             'front.string' => 'Вопрос должен быть строкой',
             'back.required' => 'Ответ обязателен',
             'back.string' => 'Ответ должен быть строкой',
+            'tags.*' => 'Теги должны быть строкой'
         ];
     }
 }
