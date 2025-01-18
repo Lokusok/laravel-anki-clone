@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AnswerController;
 use App\Http\Controllers\Api\V1\DeckController;
 use App\Http\Controllers\Api\V1\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -16,4 +17,8 @@ Route::controller(QuestionController::class)->group(function () {
     Route::post('/decks/{deck}/questions', 'store')->name('questions.store');
     Route::match(['PUT', 'PATCH'], '/decks/{deck}/questions/{questionId}', 'update')->name('questions.update');
     Route::delete('/decks/{deck}/questions/{questionId}', 'destroy')->name('questions.destroy');
+});
+
+Route::controller(AnswerController::class)->group(function () {
+    Route::post('/questions/{question}/answer', 'store')->name('answers.store');
 });

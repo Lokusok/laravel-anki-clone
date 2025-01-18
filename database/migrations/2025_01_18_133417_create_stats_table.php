@@ -10,11 +10,11 @@ return new class extends Migration
     {
         Schema::create('stats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('count_ask');
-            $table->unsignedInteger('count_easy');
-            $table->unsignedInteger('count_good');
-            $table->unsignedInteger('count_hard');
-            $table->unsignedInteger('count_again');
+            $table->unsignedInteger('count_ask')->default(0);
+            $table->unsignedInteger('count_easy')->default(0);
+            $table->unsignedInteger('count_good')->default(0);
+            $table->unsignedInteger('count_hard')->default(0);
+            $table->unsignedInteger('count_again')->default(0);
             $table->foreignId('question_id')->constrained('questions', 'id');
             $table->timestamps();
         });
