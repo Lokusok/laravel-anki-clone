@@ -21,6 +21,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(AnswerController::class)->group(function () {
-        Route::post('/questions/{question}/answer', 'store')->name('answers.store');
+        Route::post('/decks/{deck}/questions/{question}/answer', 'store')->name('answers.store');
     });
 });

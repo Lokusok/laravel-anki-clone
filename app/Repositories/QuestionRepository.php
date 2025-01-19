@@ -101,7 +101,7 @@ class QuestionRepository
 
             // Не даём ответить, если не подошло время ответа
             if ($question->when_ask->greaterThan(now())) {
-                throw new QuestionToEarlyToAnswer('Время ответа не подошло');
+                throw new QuestionToEarlyToAnswer('Рано отвечать на этот вопрос');
             }
 
             $question->stat()->increment($key);

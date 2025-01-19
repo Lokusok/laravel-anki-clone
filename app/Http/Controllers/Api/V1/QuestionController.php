@@ -9,11 +9,16 @@ use App\Http\Resources\QuestionResource;
 use App\Models\Deck;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionController extends Controller
 {
     public function index(Request $request, Deck $deck, QuestionRepository $repository)
     {
+        if (! Gate::allows('viewQuestions', $deck)) {
+            abort(404, 'Такой коллекции не существует');
+        }
+
         $tag = $request->query('tag');
 
         $questions = $repository->findByTag([
@@ -26,6 +31,10 @@ class QuestionController extends Controller
 
     public function store(StoreQuestionRequest $request, Deck $deck, QuestionRepository $repository)
     {
+        if (! Gate::allows('storeQuestion', $deck)) {
+            abort(404, 'Такой коллекции не существует');
+        }
+
         $data = $request->all();
 
         $data['deck_id'] = $deck->id;
@@ -37,6 +46,10 @@ class QuestionController extends Controller
 
     public function update(UpdateQuestionRequest $request, Deck $deck, string $questionId, QuestionRepository $repository)
     {
+        if (! Gate::allows('updateQuestion', $deck)) {
+            abort(404, 'Такой коллекции не существует');
+        }
+
         $data = $request->validated();
 
         $question = $repository->update([
@@ -47,8 +60,12 @@ class QuestionController extends Controller
         return QuestionResource::make($question);
     }
 
-    public function destroy(string $deckId, string $questionId, QuestionRepository $repository)
+    public function destroy(Request $request, Deck $deck, string $questionId, QuestionRepository $repository)
     {
+        if ($deck->user_id !== $request->user()->id) {
+            abort(404, 'Такой коллекции не существует');
+        }
+
         $repository->delete(['question_id' => $questionId]);
 
         return response()->noContent();

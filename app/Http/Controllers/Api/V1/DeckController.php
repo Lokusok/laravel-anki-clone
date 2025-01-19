@@ -9,6 +9,7 @@ use App\Http\Resources\DeckResource;
 use App\Models\Deck;
 use App\Repositories\DeckRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DeckController extends Controller
 {
@@ -31,7 +32,7 @@ class DeckController extends Controller
 
     public function update(UpdateDeckRequest $request, Deck $deck)
     {
-        if ($deck->user_id !== $request->user()->id) {
+        if (! Gate::allows('update', $deck)) {
             abort(404, 'Такой коллекции не существует');
         }
 
@@ -44,7 +45,7 @@ class DeckController extends Controller
 
     public function destroy(Request $request, Deck $deck)
     {
-        if ($deck->user_id !== $request->user()->id) {
+        if (! Gate::allows('delete', $deck)) {
             abort(404, 'Такой коллекции не существует');
         }
 
