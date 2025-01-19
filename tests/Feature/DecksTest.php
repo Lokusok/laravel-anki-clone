@@ -82,13 +82,13 @@ class DecksTest extends TestCase
 
     public function testDeckDelete(): void
     {
-        $randomId = rand(1, 10);
+        $randomDeck = Deck::first();
 
-        $response = $this->delete(route('decks.destroy', ['deck' => $randomId]));
+        $response = $this->delete(route('decks.destroy', ['deck' => $randomDeck->id]));
 
-        $decks = Deck::all();
+        $deck = Deck::find($randomDeck->id);
 
-        $this->assertEquals($this->deckCount - 1, $decks->count());
+        $this->assertNull($deck);
         $response->assertStatus(204);
     }
 

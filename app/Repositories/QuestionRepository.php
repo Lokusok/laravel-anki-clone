@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\QuestionNotFoundException;
+use App\Exceptions\QuestionToEarlyToAnswer;
 use App\Models\Deck;
 use App\Models\Question;
 use App\Models\Tag;
@@ -11,22 +13,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class QuestionRepository
 {
+    public function __construct(private TagRepository $tagRepository)
+    {
+
+    }
+
+    /**
+     * @param array{tags: array<int, string>} $attributes
+     */
     public function create(array $attributes): Question
     {
         $question = DB::transaction(function () use ($attributes) {
-            $tagsIds = collect([]);
-
-            collect($attributes['tags'])->each(function ($tag) use ($tagsIds) {
-                $normalizeTag = strtolower($tag);
-
-                $foundedTag = Tag::query()->where('title', $normalizeTag)->first();
-
-                if (! $foundedTag) {
-                    $foundedTag = Tag::create(['title' => $normalizeTag]);
-                }
-
-                $tagsIds->push($foundedTag->id);
-            });
+            $tagsIds = $this->tagRepository->createFromArrayUnique($attributes['tags']);
 
             $question = Question::create([
                 'front' => $attributes['front'],
@@ -39,6 +37,25 @@ class QuestionRepository
 
             return $question;
         });
+
+        return $question;
+    }
+
+    /**
+     * @param array{question_id: string|int, data: array<string, mixed>} $attributes
+     */
+    public function update(array $attributes): Question
+    {
+        $question = Question::find($attributes['question_id']);
+
+        if (! $question) {
+            throw new QuestionNotFoundException("Вопрос с ID {$attributes['question_id']} не существует");
+        }
+
+        $question->update($attributes['data']);
+        $tagsIds = $this->tagRepository->createFromArrayUnique($attributes['data']['tags']);
+
+        $question->tags()->sync($tagsIds);
 
         return $question;
     }
@@ -75,7 +92,7 @@ class QuestionRepository
 
             // Не даём ответить, если не подошло время ответа
             if ($question->when_ask->greaterThan(now())) {
-                abort(Response::HTTP_TOO_EARLY, 'Время ответа не подошло');
+                throw new QuestionToEarlyToAnswer('Время ответа не подошло');
             }
 
             $question->stat()->increment($key);

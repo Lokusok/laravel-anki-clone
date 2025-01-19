@@ -33,18 +33,17 @@ class QuestionController extends Controller
 
         $question = $repository->create($data);
 
-       return QuestionResource::make($question)->response()->setStatusCode(201);
+        return QuestionResource::make($question)->response()->setStatusCode(201);
     }
 
-    public function update(UpdateQuestionRequest $request, Deck $deck,  string $questionId)
+    public function update(UpdateQuestionRequest $request, Deck $deck,  string $questionId, QuestionRepository $repository)
     {
         $data = $request->validated();
 
-        $question = $deck->questions()->where('id', $questionId)->first();
-
-        abort_if(! $question, 404, "Вопрос с ID {$questionId} не существует");
-
-        $question->update($data);
+        $question = $repository->update([
+            'question_id' => $questionId,
+            'data' => $data
+        ]);
 
         return QuestionResource::make($question);
     }

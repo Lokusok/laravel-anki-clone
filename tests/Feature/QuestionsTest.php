@@ -149,8 +149,6 @@ class QuestionsTest extends TestCase
         $tagFirst = Tag::query()->where('title', $json['data']['tags'][0]['title'])->first();
         $tagSecond = Tag::query()->where('title', $json['data']['tags'][1]['title'])->first();
 
-        dd($tagFirst->title, $newQuestion['tags'][0]);
-
         $this->assertEquals($tagFirst->title, $newQuestion['tags'][0]);
         $this->assertEquals($tagSecond->title, $newQuestion['tags'][1]);
 
