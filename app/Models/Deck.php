@@ -12,7 +12,7 @@ class Deck extends Model
 
     protected $fillable = [
         'title',
-        'user_id'
+        'user_id',
     ];
 
     public function questions(): HasMany

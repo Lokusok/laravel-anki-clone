@@ -8,13 +8,13 @@ use App\Http\Requests\Deck\UpdateDeckRequest;
 use App\Http\Resources\DeckResource;
 use App\Models\Deck;
 use App\Repositories\DeckRepository;
-use Illuminate\Http\Request;
 
 class DeckController extends Controller
 {
     public function index()
     {
         $decks = Deck::orderBy('created_at', 'DESC')->get();
+
         return DeckResource::collection($decks);
     }
 

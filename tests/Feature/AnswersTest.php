@@ -18,7 +18,7 @@ class AnswersTest extends TestCase
 
     private int $questionId;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -26,13 +26,13 @@ class AnswersTest extends TestCase
         $this->seed(DeckSeeder::class);
     }
 
-    public function testEarlyAnswerReject(): void
+    public function test_early_answer_reject(): void
     {
         $question = Question::create([
             'deck_id' => 1,
             'front' => $this->faker->sentence(2),
             'back' => $this->faker->sentence(2),
-            'when_ask' => now()->addDay()
+            'when_ask' => now()->addDay(),
         ]);
 
         $this->questionId = $question->id;
@@ -40,20 +40,20 @@ class AnswersTest extends TestCase
         $response = $this->post(
             route('answers.store', ['question' => $this->questionId]),
             [
-                'type' => AnswerType::EASY->value
+                'type' => AnswerType::EASY->value,
             ]
         );
 
         $response->assertStatus(Response::HTTP_TOO_EARLY);
     }
 
-    public function testLaterAnswerAccept(): void
+    public function test_later_answer_accept(): void
     {
         $question = Question::create([
             'deck_id' => 1,
             'front' => $this->faker->sentence(2),
             'back' => $this->faker->sentence(2),
-            'when_ask' => now()->subDay()
+            'when_ask' => now()->subDay(),
         ]);
 
         $previosKeyCount = $question->stat->count_easy;
@@ -63,7 +63,7 @@ class AnswersTest extends TestCase
         $response = $this->post(
             route('answers.store', ['question' => $this->questionId]),
             [
-                'type' => AnswerType::EASY->value
+                'type' => AnswerType::EASY->value,
             ]
         );
 

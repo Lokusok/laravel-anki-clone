@@ -9,7 +9,6 @@ use App\Http\Resources\QuestionResource;
 use App\Models\Deck;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -19,7 +18,7 @@ class QuestionController extends Controller
 
         $questions = $repository->findByTag([
             'deck_id' => $deck->id,
-            'tag' => $tag
+            'tag' => $tag,
         ]);
 
         return QuestionResource::collection($questions);
@@ -36,13 +35,13 @@ class QuestionController extends Controller
         return QuestionResource::make($question)->response()->setStatusCode(201);
     }
 
-    public function update(UpdateQuestionRequest $request, Deck $deck,  string $questionId, QuestionRepository $repository)
+    public function update(UpdateQuestionRequest $request, Deck $deck, string $questionId, QuestionRepository $repository)
     {
         $data = $request->validated();
 
         $question = $repository->update([
             'question_id' => $questionId,
-            'data' => $data
+            'data' => $data,
         ]);
 
         return QuestionResource::make($question);

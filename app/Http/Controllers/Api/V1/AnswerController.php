@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Answers\StoreAnswerRequest;
 use App\Http\Resources\QuestionResource;
 use App\Repositories\QuestionRepository;
-use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {

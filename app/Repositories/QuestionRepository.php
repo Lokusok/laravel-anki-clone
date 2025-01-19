@@ -6,20 +6,15 @@ use App\Exceptions\QuestionNotFoundException;
 use App\Exceptions\QuestionToEarlyToAnswer;
 use App\Models\Deck;
 use App\Models\Question;
-use App\Models\Tag;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Response;
 
 class QuestionRepository
 {
-    public function __construct(private TagRepository $tagRepository)
-    {
-
-    }
+    public function __construct(private TagRepository $tagRepository) {}
 
     /**
-     * @param array{tags: array<int, string>} $attributes
+     * @param  array{front: string, back: string, when_ask: string, tags: array<int, string>}  $attributes
      */
     public function create(array $attributes): Question
     {
@@ -42,7 +37,7 @@ class QuestionRepository
     }
 
     /**
-     * @param array{question_id: string|int, data: array<string, mixed>} $attributes
+     * @param  array{question_id: string|int, data: array<string, mixed>}  $attributes
      */
     public function update(array $attributes): Question
     {
@@ -61,7 +56,7 @@ class QuestionRepository
     }
 
     /**
-     * @param array{deck_id: int, tag: string} $attributes
+     * @param  array{deck_id: int, tag: string}  $attributes
      */
     public function findByTag(array $attributes): Collection
     {
@@ -81,12 +76,12 @@ class QuestionRepository
     }
 
     /**
-     * @param array{question_id: int, type: string} $attributes
+     * @param  array{question_id: int, type: string}  $attributes
      */
     public function answerToQuestion(array $attributes): Question
     {
         $question = DB::transaction(function () use ($attributes) {
-            $key = "count_" . $attributes['type'];
+            $key = 'count_'.$attributes['type'];
 
             $question = Question::find($attributes['question_id']);
 
@@ -96,6 +91,7 @@ class QuestionRepository
             }
 
             $question->stat()->increment($key);
+            $toReset = [];
 
             switch ($attributes['type']) {
                 case 'easy':
@@ -107,12 +103,14 @@ class QuestionRepository
                     $toReset = ['count_easy', 'count_hard', 'count_again'];
                     break;
                 case 'hard':
-                    $whenAsk  = now()->addMinutes(10 * $question->stat->count_hard);
+                    $whenAsk = now()->addMinutes(10 * $question->stat->count_hard);
                     $toReset = ['count_easy', 'count_good', 'count_again'];
                     break;
                 case 'again':
                     $whenAsk = now()->addMinute();
                     break;
+                default:
+                    $whenAsk = now()->addDay();
             }
 
             $toReset = collect($toReset)->mapWithKeys(function ($key) {

@@ -22,7 +22,7 @@ class Question extends Model
     ];
 
     protected $casts = [
-        'when_ask' => 'datetime'
+        'when_ask' => 'datetime',
     ];
 
     public function tags(): BelongsToMany

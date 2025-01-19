@@ -1,0 +1,10 @@
+parameters:
+	level: 1
+	paths:
+		- app
+		- tests
+	ignoreErrors:
+		-
+			identifier: staticMethod.notFound
+		-
+			identifier: property.notFound

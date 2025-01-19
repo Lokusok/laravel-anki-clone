@@ -17,13 +17,13 @@ class QuestionsTest extends TestCase
 
     private int $deckId = 1;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->seed(DatabaseSeeder::class);
     }
 
-    public function testQuestionsIndex(): void
+    public function test_questions_index(): void
     {
         $response = $this->get(route('questions.index', ['deck' => $this->deckId]));
 
@@ -36,8 +36,8 @@ class QuestionsTest extends TestCase
                     'deck_id',
                     'tags' => [
                         '*' => [
-                            'title'
-                        ]
+                            'title',
+                        ],
                     ],
                     'when_ask',
                     'created_at',
@@ -48,12 +48,12 @@ class QuestionsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testQuestionStore(): void
+    public function test_question_store(): void
     {
         $newQuestion = [
             'front' => $this->faker->sentence(2),
             'back' => $this->faker->sentence(2),
-            'tags' => ['php', 'laravel']
+            'tags' => ['php', 'laravel'],
         ];
 
         $response = $this->post(
@@ -73,8 +73,8 @@ class QuestionsTest extends TestCase
                 'deck_id',
                 'tags' => [
                     '*' => [
-                        'title'
-                    ]
+                        'title',
+                    ],
                 ],
                 'when_ask',
                 'created_at',
@@ -97,7 +97,7 @@ class QuestionsTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function testQuestionUpdate(): void
+    public function test_question_update(): void
     {
         $deck = Deck::find($this->deckId);
 
@@ -110,7 +110,7 @@ class QuestionsTest extends TestCase
         $newQuestion = [
             'front' => $this->faker->sentence(2),
             'back' => $this->faker->sentence(2),
-            'tags' => ['golang', 'python']
+            'tags' => ['golang', 'python'],
         ];
 
         $response = $this->put(
@@ -130,8 +130,8 @@ class QuestionsTest extends TestCase
                 'deck_id',
                 'tags' => [
                     '*' => [
-                        'title'
-                    ]
+                        'title',
+                    ],
                 ],
                 'when_ask',
                 'created_at',
@@ -155,13 +155,13 @@ class QuestionsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testQuestionDelete(): void
+    public function test_question_delete(): void
     {
         $questionId = 1;
 
         $response = $this->delete(
-                route('questions.destroy',
-            ['deck'  => $this->deckId, 'questionId' => $questionId])
+            route('questions.destroy',
+                ['deck' => $this->deckId, 'questionId' => $questionId])
         );
 
         $question = Question::find($questionId);

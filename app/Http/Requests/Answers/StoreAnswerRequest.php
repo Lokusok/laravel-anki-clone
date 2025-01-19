@@ -16,7 +16,7 @@ class StoreAnswerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', new Enum(AnswerType::class)]
+            'type' => ['required', new Enum(AnswerType::class)],
         ];
     }
 
@@ -24,7 +24,7 @@ class StoreAnswerRequest extends FormRequest
     {
         return [
             'type.required' => 'Тип ответа обязателен',
-            'type.Illuminate\Validation\Rules\Enum' => 'Неверный тип ответа'
+            'type.Illuminate\Validation\Rules\Enum' => 'Неверный тип ответа',
         ];
     }
 }

@@ -17,7 +17,7 @@ class QuestionFactory extends Factory
             'front' => $this->faker->sentence(rand(2, 10)),
             'back' => $this->faker->sentence(rand(2, 10)),
             'deck_id' => rand(1, 10),
-            'when_ask' => $dates[array_rand($dates)]
+            'when_ask' => $dates[array_rand($dates)],
         ];
     }
 }

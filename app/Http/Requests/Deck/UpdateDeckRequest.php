@@ -14,7 +14,7 @@ class UpdateDeckRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string']
+            'title' => ['required', 'string'],
         ];
     }
 
@@ -22,7 +22,7 @@ class UpdateDeckRequest extends FormRequest
     {
         return [
             'title.required' => 'Заголовок является обязательным полем',
-            'title.string' => 'Заголовок должен быть строкой'
+            'title.string' => 'Заголовок должен быть строкой',
         ];
     }
 }

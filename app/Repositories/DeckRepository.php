@@ -10,7 +10,7 @@ class DeckRepository
     {
         $deck = Deck::create([
             'title' => $attributes['title'],
-            'user_id' => $attributes['user_id']
+            'user_id' => $attributes['user_id'],
         ]);
 
         return $deck;

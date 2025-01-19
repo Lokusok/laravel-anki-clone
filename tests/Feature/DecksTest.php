@@ -15,13 +15,13 @@ class DecksTest extends TestCase
 
     private int $deckCount = 10;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->seed(DatabaseSeeder::class);
     }
 
-    public function testDeckIndex(): void
+    public function test_deck_index(): void
     {
         $response = $this->get(route('decks.index'));
 
@@ -31,21 +31,21 @@ class DecksTest extends TestCase
                     'id',
                     'title',
                     'user_id',
-                    'created_at'
-                ]
-            ]
+                    'created_at',
+                ],
+            ],
         ]);
 
         $response->assertStatus(200);
     }
 
-    public function testDeckStore(): void
+    public function test_deck_store(): void
     {
         $randomTitle = bin2hex(random_bytes(10));
 
         $response = $this->post(route('decks.store'), [
             'title' => $randomTitle,
-            'user_id' => 1
+            'user_id' => 1,
         ]);
 
         $json = $response->json();
@@ -56,13 +56,13 @@ class DecksTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function testDeckEdit()
+    public function test_deck_edit()
     {
         $deckId = 1;
         $newTitle = 'updated title';
 
         $response = $this->put(route('decks.update', ['deck' => $deckId]), [
-            'title' => $newTitle
+            'title' => $newTitle,
         ]);
 
         $response->assertJsonStructure([
@@ -71,7 +71,7 @@ class DecksTest extends TestCase
                 'title',
                 'user_id',
                 'created_at',
-            ]
+            ],
         ]);
 
         $deck = Deck::find($deckId);
@@ -80,7 +80,7 @@ class DecksTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testDeckDelete(): void
+    public function test_deck_delete(): void
     {
         $randomDeck = Deck::first();
 
@@ -92,7 +92,7 @@ class DecksTest extends TestCase
         $response->assertStatus(204);
     }
 
-    public function testUnknownDeckDeleteThrow_404(): void
+    public function test_unknown_deck_delete_throw_404(): void
     {
         $undefinedId = 9999;
 

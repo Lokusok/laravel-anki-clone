@@ -7,7 +7,7 @@ use App\Models\Tag;
 class TagRepository
 {
     /**
-     * @param array<int, string> $tags
+     * @param  array<int, string>  $tags
      * @return array<int, int>
      */
     public function createFromArrayUnique(array $tags): array
