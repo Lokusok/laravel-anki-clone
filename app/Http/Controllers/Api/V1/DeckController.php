@@ -32,9 +32,7 @@ class DeckController extends Controller
 
     public function update(UpdateDeckRequest $request, Deck $deck)
     {
-        if (! Gate::allows('update', $deck)) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('update', $deck);
 
         $data = $request->validated();
 
@@ -45,9 +43,7 @@ class DeckController extends Controller
 
     public function destroy(Request $request, Deck $deck)
     {
-        if (! Gate::allows('delete', $deck)) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('delete', $deck);
 
         $deck->delete();
 

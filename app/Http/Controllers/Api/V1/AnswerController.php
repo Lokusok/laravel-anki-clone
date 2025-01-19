@@ -13,9 +13,7 @@ class AnswerController extends Controller
 {
     public function store(StoreAnswerRequest $request, Deck $deck, QuestionRepository $repository, string $questionId)
     {
-        if (! Gate::allows('answer', $deck)) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('answer', $deck);
 
         $data = $request->validated();
         $data['question_id'] = $questionId;

@@ -15,9 +15,7 @@ class QuestionController extends Controller
 {
     public function index(Request $request, Deck $deck, QuestionRepository $repository)
     {
-        if (! Gate::allows('viewQuestions', $deck)) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('viewQuestions', $deck);
 
         $tag = $request->query('tag');
 
@@ -31,9 +29,7 @@ class QuestionController extends Controller
 
     public function store(StoreQuestionRequest $request, Deck $deck, QuestionRepository $repository)
     {
-        if (! Gate::allows('storeQuestion', $deck)) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('storeQuestion', $deck);
 
         $data = $request->all();
 
@@ -46,9 +42,7 @@ class QuestionController extends Controller
 
     public function update(UpdateQuestionRequest $request, Deck $deck, string $questionId, QuestionRepository $repository)
     {
-        if (! Gate::allows('updateQuestion', $deck)) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('updateQuestion', $deck);
 
         $data = $request->validated();
 
@@ -60,11 +54,9 @@ class QuestionController extends Controller
         return QuestionResource::make($question);
     }
 
-    public function destroy(Request $request, Deck $deck, string $questionId, QuestionRepository $repository)
+    public function destroy(Deck $deck, string $questionId, QuestionRepository $repository)
     {
-        if ($deck->user_id !== $request->user()->id) {
-            abort(404, 'Такой коллекции не существует');
-        }
+        Gate::authorize('deleteQuestion', $deck);
 
         $repository->delete(['question_id' => $questionId]);
 
