@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\AnswerType;
+use App\Exceptions\QuestionToEarlyToAnswer;
 use App\Models\Question;
 use Database\Seeders\DeckSeeder;
 use Database\Seeders\UserSeeder;
@@ -28,6 +29,9 @@ class AnswersTest extends TestCase
 
     public function test_early_answer_reject(): void
     {
+        $this->withoutExceptionHandling();
+        $this->expectException(QuestionToEarlyToAnswer::class);
+
         $question = Question::create([
             'deck_id' => 1,
             'front' => $this->faker->sentence(2),

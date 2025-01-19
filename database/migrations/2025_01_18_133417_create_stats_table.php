@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedInteger('count_good')->default(0);
             $table->unsignedInteger('count_hard')->default(0);
             $table->unsignedInteger('count_again')->default(0);
-            $table->foreignId('question_id')->constrained('questions', 'id');
+            $table->foreignId('question_id')->constrained('questions', 'id')->onDelete('cascade');
             $table->timestamps();
         });
     }

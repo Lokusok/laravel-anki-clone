@@ -56,6 +56,20 @@ class QuestionRepository
     }
 
     /**
+     * @param  array{question_id: string|int}  $attributes
+     */
+    public function delete(array $attributes): void
+    {
+        $question = Question::find($attributes['question_id']);
+
+        if (! $question) {
+            throw new QuestionNotFoundException("Вопрос с ID {$attributes['question_id']} не существует");
+        }
+
+        $question->delete();
+    }
+
+    /**
      * @param  array{deck_id: int, tag: string}  $attributes
      */
     public function findByTag(array $attributes): Collection

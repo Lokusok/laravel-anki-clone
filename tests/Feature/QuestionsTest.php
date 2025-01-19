@@ -2,12 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\QuestionNotFoundException;
 use App\Models\Deck;
 use App\Models\Question;
 use App\Models\Tag;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class QuestionsTest extends TestCase
@@ -46,6 +48,25 @@ class QuestionsTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+    }
+
+    public function test_unknown_question_update_throw_404()
+    {
+        $this->withoutExceptionHandling();
+        $this->expectException(QuestionNotFoundException::class);
+
+        $unknownId = 9999;
+
+        $response = $this->put(
+            route('questions.update', ['deck' => $this->deckId, 'questionId' => $unknownId]),
+            [
+                'front' => $this->faker->sentence(2),
+                'back' => $this->faker->sentence(2),
+                'tags' => ['php'],
+            ]
+        );
+
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
     public function test_question_store(): void
@@ -145,7 +166,6 @@ class QuestionsTest extends TestCase
         $this->assertEquals($question->front, $newQuestion['front']);
         $this->assertEquals($question->back, $newQuestion['back']);
 
-        // @TODO Исправить
         $tagFirst = Tag::query()->where('title', $json['data']['tags'][0]['title'])->first();
         $tagSecond = Tag::query()->where('title', $json['data']['tags'][1]['title'])->first();
 
@@ -157,15 +177,35 @@ class QuestionsTest extends TestCase
 
     public function test_question_delete(): void
     {
-        $questionId = 1;
+        $question = Question::create([
+            'deck_id' => 1,
+            'front' => $this->faker->sentence(2),
+            'back' => $this->faker->sentence(2),
+            'when_ask' => now()->addDay(),
+        ]);
+
+        $response = $this->delete(
+            route('questions.destroy',
+                ['deck' => $this->deckId, 'questionId' => $question->id])
+        );
+
+        $question = Question::find($question->id);
+        $this->assertNull($question);
+
+        $response->assertStatus(204);
+    }
+
+    public function test_question_unknown_delete_throw_404(): void
+    {
+        $this->withoutExceptionHandling();
+        $this->expectException(QuestionNotFoundException::class);
+
+        $questionId = 9999;
 
         $response = $this->delete(
             route('questions.destroy',
                 ['deck' => $this->deckId, 'questionId' => $questionId])
         );
-
-        $question = Question::find($questionId);
-        // $this->assertNull($question);
 
         $response->assertStatus(204);
     }

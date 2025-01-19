@@ -47,9 +47,9 @@ class QuestionController extends Controller
         return QuestionResource::make($question);
     }
 
-    public function destroy(Deck $deck, string $questionId)
+    public function destroy(string $deckId, string $questionId, QuestionRepository $repository)
     {
-        $deck->questions()->where('id', $questionId)->delete($questionId);
+        $repository->delete(['question_id' => $questionId]);
 
         return response()->noContent();
     }
