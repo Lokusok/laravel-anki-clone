@@ -8,12 +8,13 @@ use App\Http\Requests\Deck\UpdateDeckRequest;
 use App\Http\Resources\DeckResource;
 use App\Models\Deck;
 use App\Repositories\DeckRepository;
+use Illuminate\Http\Request;
 
 class DeckController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $decks = Deck::orderBy('created_at', 'DESC')->get();
+        $decks = $request->user()->decks;
 
         return DeckResource::collection($decks);
     }
@@ -21,6 +22,7 @@ class DeckController extends Controller
     public function store(StoreDeckRequest $request, DeckRepository $repository)
     {
         $data = $request->validated();
+        $data['user_id'] = $request->user()->id;
 
         $deck = $repository->create($data);
 
@@ -29,6 +31,10 @@ class DeckController extends Controller
 
     public function update(UpdateDeckRequest $request, Deck $deck)
     {
+        if ($deck->user_id !== $request->user()->id) {
+            abort(404, 'Такой коллекции не существует');
+        }
+
         $data = $request->validated();
 
         $deck->update($data);
@@ -36,8 +42,12 @@ class DeckController extends Controller
         return DeckResource::make($deck);
     }
 
-    public function destroy(Deck $deck)
+    public function destroy(Request $request, Deck $deck)
     {
+        if ($deck->user_id !== $request->user()->id) {
+            abort(404, 'Такой коллекции не существует');
+        }
+
         $deck->delete();
 
         return response()->noContent();
