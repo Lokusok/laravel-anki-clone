@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class QuestionToEarlyToAnswer extends Exception
+final class QuestionToEarlyToAnswer extends Exception
 {
     public function render()
     {

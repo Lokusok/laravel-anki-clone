@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class QuestionNotFoundException extends Exception
+final class QuestionNotFoundException extends Exception
 {
     public function render()
     {

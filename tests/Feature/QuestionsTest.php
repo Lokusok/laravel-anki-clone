@@ -6,6 +6,7 @@ use App\Exceptions\QuestionNotFoundException;
 use App\Models\Deck;
 use App\Models\Question;
 use App\Models\Tag;
+use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,6 +24,7 @@ class QuestionsTest extends TestCase
     {
         parent::setUp();
         $this->seed(DatabaseSeeder::class);
+        $this->actingAs(User::first());
     }
 
     public function test_questions_index(): void
@@ -47,7 +49,7 @@ class QuestionsTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_unknown_question_update_throw_404()
@@ -115,7 +117,7 @@ class QuestionsTest extends TestCase
         $this->assertEquals($tagFirst->title, $newQuestion['tags'][0]);
         $this->assertEquals($tagSecond->title, $newQuestion['tags'][1]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
     }
 
     public function test_question_update(): void
@@ -172,7 +174,7 @@ class QuestionsTest extends TestCase
         $this->assertEquals($tagFirst->title, $newQuestion['tags'][0]);
         $this->assertEquals($tagSecond->title, $newQuestion['tags'][1]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_question_delete(): void
@@ -192,7 +194,7 @@ class QuestionsTest extends TestCase
         $question = Question::find($question->id);
         $this->assertNull($question);
 
-        $response->assertStatus(204);
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
 
     public function test_question_unknown_delete_throw_404(): void
@@ -207,6 +209,6 @@ class QuestionsTest extends TestCase
                 ['deck' => $this->deckId, 'questionId' => $questionId])
         );
 
-        $response->assertStatus(204);
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
 }

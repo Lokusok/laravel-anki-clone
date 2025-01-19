@@ -30,6 +30,11 @@ class DeckPolicy
         return $this->isUserHasIt($user, $deck);
     }
 
+    public function deleteQuestion(User $user, Deck $deck): Response
+    {
+        return $this->isUserHasIt($user, $deck);
+    }
+
     public function update(User $user, Deck $deck): Response
     {
         return $this->isUserHasIt($user, $deck);

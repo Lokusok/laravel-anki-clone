@@ -9,7 +9,7 @@ use App\Models\Question;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class QuestionRepository
+final class QuestionRepository
 {
     public function __construct(private TagRepository $tagRepository) {}
 
@@ -56,7 +56,7 @@ class QuestionRepository
     }
 
     /**
-     * @param  array{question_id: string|int}  $attributes
+     * @param  array{question_id: int}  $attributes
      */
     public function delete(array $attributes): void
     {

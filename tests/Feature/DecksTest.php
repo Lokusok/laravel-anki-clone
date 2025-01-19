@@ -5,8 +5,10 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\Deck;
+use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class DecksTest extends TestCase
@@ -18,7 +20,9 @@ class DecksTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->seed(DatabaseSeeder::class);
+        $this->actingAs(User::first());
     }
 
     public function test_deck_index(): void
@@ -36,7 +40,7 @@ class DecksTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_deck_store(): void
@@ -53,7 +57,7 @@ class DecksTest extends TestCase
 
         $this->assertEquals($deck->title, $randomTitle);
 
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
     }
 
     public function test_deck_edit()
@@ -77,7 +81,7 @@ class DecksTest extends TestCase
         $deck = Deck::find($deckId);
 
         $this->assertEquals($deck->title, $newTitle);
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_deck_delete(): void
@@ -89,7 +93,7 @@ class DecksTest extends TestCase
         $deck = Deck::find($randomDeck->id);
 
         $this->assertNull($deck);
-        $response->assertStatus(204);
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
 
     public function test_unknown_deck_delete_throw_404(): void
@@ -98,6 +102,6 @@ class DecksTest extends TestCase
 
         $response = $this->delete(route('decks.destroy', ['deck' => $undefinedId]));
 
-        $response->assertStatus(404);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

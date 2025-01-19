@@ -4,8 +4,11 @@ namespace App\Repositories;
 
 use App\Models\Deck;
 
-class DeckRepository
+final class DeckRepository
 {
+    /**
+     * @param array{title: string, user_id: int} $attributes
+     */
     public function create(array $attributes): Deck
     {
         $deck = Deck::create([

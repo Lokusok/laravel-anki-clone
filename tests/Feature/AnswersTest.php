@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\AnswerType;
 use App\Exceptions\QuestionToEarlyToAnswer;
 use App\Models\Question;
+use App\Models\User;
 use Database\Seeders\DeckSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,6 +26,7 @@ class AnswersTest extends TestCase
 
         $this->seed(UserSeeder::class);
         $this->seed(DeckSeeder::class);
+        $this->actingAs(User::first());
     }
 
     public function test_early_answer_reject(): void
@@ -42,7 +44,7 @@ class AnswersTest extends TestCase
         $this->questionId = $question->id;
 
         $response = $this->post(
-            route('answers.store', ['question' => $this->questionId]),
+            route('answers.store', ['deck' => $question->deck_id, 'question' => $this->questionId]),
             [
                 'type' => AnswerType::EASY->value,
             ]
@@ -65,7 +67,7 @@ class AnswersTest extends TestCase
         $this->questionId = $question->id;
 
         $response = $this->post(
-            route('answers.store', ['question' => $this->questionId]),
+            route('answers.store', ['deck' => $question->deck_id, 'question' => $this->questionId]),
             [
                 'type' => AnswerType::EASY->value,
             ]
@@ -76,6 +78,6 @@ class AnswersTest extends TestCase
 
         $this->assertGreaterThan($previosKeyCount, $currentKeyCount);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }
