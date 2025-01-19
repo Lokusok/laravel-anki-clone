@@ -78,6 +78,7 @@ final class QuestionRepository
 
         $questions = $deck
             ->questions()
+            ->with('tags')
             ->whereHas('tags', function ($query) use ($attributes) {
                 if ($attributes['tag']) {
                     $query->where('title', $attributes['tag']);
