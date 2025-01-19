@@ -9,6 +9,6 @@ final class QuestionToEarlyToAnswer extends Exception
 {
     public function render()
     {
-        abort(Response::HTTP_TOO_EARLY, $this->message);
+        abort(Response::HTTP_TOO_EARLY, __('Рано отвечать вопрос с ID :id', ['id' => $this->message]));
     }
 }

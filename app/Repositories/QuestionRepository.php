@@ -44,7 +44,7 @@ final class QuestionRepository
         $question = Question::find($attributes['question_id']);
 
         if (! $question) {
-            throw new QuestionNotFoundException("Вопрос с ID {$attributes['question_id']} не существует");
+            throw new QuestionNotFoundException($attributes['question_id']);
         }
 
         $question->update($attributes['data']);
@@ -63,7 +63,7 @@ final class QuestionRepository
         $question = Question::find($attributes['question_id']);
 
         if (! $question) {
-            throw new QuestionNotFoundException("Вопрос с ID {$attributes['question_id']} не существует");
+            throw new QuestionNotFoundException($attributes['question_id']);
         }
 
         $question->delete();
@@ -102,7 +102,7 @@ final class QuestionRepository
 
             // Не даём ответить, если не подошло время ответа
             if ($question->when_ask->greaterThan(now())) {
-                throw new QuestionToEarlyToAnswer('Рано отвечать на этот вопрос');
+                throw new QuestionToEarlyToAnswer($attributes['question_id']);
             }
 
             $question->stat()->increment($key);
