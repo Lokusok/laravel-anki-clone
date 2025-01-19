@@ -1,0 +1,298 @@
+openapi: 3.0.3
+info:
+  title: 'API Documentation'
+  description: 'Read information about API'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+paths:
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/decks:
+    get:
+      summary: ''
+      operationId: getApiV1Decks
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiV1Decks
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: ut
+                  nullable: false
+              required:
+                - title
+      security: []
+  '/api/v1/decks/{id}':
+    put:
+      summary: ''
+      operationId: putApiV1DecksId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: unde
+                  nullable: false
+              required:
+                - title
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiV1DecksId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the deck.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/v1/decks/{deck_id}/questions':
+    get:
+      summary: ''
+      operationId: getApiV1DecksDeck_idQuestions
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiV1DecksDeck_idQuestions
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                front:
+                  type: string
+                  description: ''
+                  example: sequi
+                  nullable: false
+                back:
+                  type: string
+                  description: ''
+                  example: cumque
+                  nullable: false
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - perferendis
+                  items:
+                    type: string
+              required:
+                - front
+                - back
+      security: []
+    parameters:
+      -
+        in: path
+        name: deck_id
+        description: 'The ID of the deck.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/v1/decks/{deck_id}/questions/{questionId}':
+    put:
+      summary: ''
+      operationId: putApiV1DecksDeck_idQuestionsQuestionId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                front:
+                  type: string
+                  description: ''
+                  example: minima
+                  nullable: false
+                back:
+                  type: string
+                  description: ''
+                  example: soluta
+                  nullable: false
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - dignissimos
+                  items:
+                    type: string
+              required:
+                - front
+                - back
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiV1DecksDeck_idQuestionsQuestionId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: deck_id
+        description: 'The ID of the deck.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: questionId
+        description: ''
+        example: et
+        required: true
+        schema:
+          type: string
+  '/api/v1/decks/{deck_id}/questions/{question}/answer':
+    post:
+      summary: ''
+      operationId: postApiV1DecksDeck_idQuestionsQuestionAnswer
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  example: easy
+                  nullable: false
+                  enum:
+                    - easy
+                    - good
+                    - hard
+                    - again
+              required:
+                - type
+      security: []
+    parameters:
+      -
+        in: path
+        name: deck_id
+        description: 'The ID of the deck.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: question
+        description: 'The question.'
+        example: corporis
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: Endpoints
+    description: ''
