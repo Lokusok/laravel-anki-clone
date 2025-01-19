@@ -19,4 +19,16 @@ class Deck extends Model
     {
         return $this->hasMany(Question::class, 'deck_id', 'id');
     }
+
+    public function questionsAskReady(): HasMany
+    {
+        return $this->hasMany(Question::class, 'deck_id', 'id')
+            ->where('when_ask', '<', now());
+    }
+
+    public function questionsAskLater(): HasMany
+    {
+        return $this->hasMany(Question::class, 'deck_id', 'id')
+            ->where('when_ask', '>', now());
+    }
 }

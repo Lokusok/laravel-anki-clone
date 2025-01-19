@@ -24,7 +24,7 @@ class QuestionController extends Controller
             'tag' => $tag,
         ]);
 
-        return QuestionResource::collection($questions);
+        return QuestionResource::collection($questions)->additional(['test' => true]);
     }
 
     public function store(StoreQuestionRequest $request, Deck $deck, QuestionRepository $repository)

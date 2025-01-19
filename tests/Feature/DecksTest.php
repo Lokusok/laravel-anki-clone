@@ -75,6 +75,8 @@ class DecksTest extends TestCase
                 'title',
                 'user_id',
                 'created_at',
+                'ask_ready',
+                'ask_later',
             ],
         ]);
 

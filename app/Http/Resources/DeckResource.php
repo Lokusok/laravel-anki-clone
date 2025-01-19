@@ -14,6 +14,8 @@ class DeckResource extends JsonResource
             'title' => $this->title,
             'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('d.m.Y'),
+            'ask_ready' => $this->questionsAskReady->count(),
+            'ask_later' => $this->questionsAskLater->count(),
         ];
     }
 }
