@@ -15,9 +15,18 @@ class DeckController extends Controller
 {
     public function index(Request $request)
     {
-        $decks = $request->user()->decks;
+        $search = $request->query('title');
+
+        $decks = $request->user()->decks()->byTitle($search)->get();
 
         return DeckResource::collection($decks);
+    }
+
+    public function show(Deck $deck)
+    {
+        Gate::authorize('show', $deck);
+
+        return DeckResource::make($deck);
     }
 
     public function store(StoreDeckRequest $request, DeckRepository $repository)

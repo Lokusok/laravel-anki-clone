@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(DeckController::class)->group(function () {
         Route::get('/decks', 'index')->name('decks.index');
+        Route::get('/decks/{deck}', 'show')->name('decks.show');
         Route::post('/decks', 'store')->name('decks.store');
         Route::match(['PUT', 'PATCH'], '/decks/{deck}', 'update')->name('decks.update');
         Route::delete('/decks/{deck}', 'destroy')->name('decks.destroy');

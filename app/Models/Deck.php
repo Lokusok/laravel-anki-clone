@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +15,13 @@ class Deck extends Model
         'title',
         'user_id',
     ];
+
+    public function scopeByTitle(Builder $query, ?string $title): void
+    {
+        if (!empty($title)) {
+            $query->where('title', 'like', "%{$title}%");
+        }
+    }
 
     public function questions(): HasMany
     {
