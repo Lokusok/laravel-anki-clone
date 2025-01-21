@@ -70,22 +70,29 @@ final class QuestionRepository
     }
 
     /**
-     * @param  array{deck_id: int, tag: string}  $attributes
+     * @param  array{deck_id: int, tag: string, isAskReady: bool, isShuffle: bool}  $attributes
      */
     public function findByTag(array $attributes): Collection
     {
         $deck = Deck::find($attributes['deck_id']);
 
+        $relationToFetch = $attributes['isAskReady'] ? 'questionsAskReady' : 'questions';
+
         $questions = $deck
-            ->questions()
-            ->with('tags')
-            ->whereHas('tags', function ($query) use ($attributes) {
-                if ($attributes['tag']) {
-                    $query->where('title', $attributes['tag']);
-                }
-            })
-            ->orderBy('created_at', 'DESC')
-            ->get();
+            ->{$relationToFetch}()
+            ->with('tags');
+
+        if (isset($attributes['tag'])) {
+            $questions = $questions->whereHas('tags', function ($query) use ($attributes) {
+                $query->where('title', $attributes['tag']);
+            });
+        }
+
+        $questions = $questions->orderBy('created_at', 'DESC')->get();
+
+        if (isset($attributes['isShuffle'])) {
+            $questions = $questions->shuffle();
+        }
 
         return $questions;
     }
@@ -96,7 +103,7 @@ final class QuestionRepository
     public function answerToQuestion(array $attributes): Question
     {
         $question = DB::transaction(function () use ($attributes) {
-            $key = 'count_'.$attributes['type'];
+            $key = 'count_' . $attributes['type'];
 
             $question = Question::find($attributes['question_id']);
 

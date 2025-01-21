@@ -18,13 +18,17 @@ class QuestionController extends Controller
         Gate::authorize('viewQuestions', $deck);
 
         $tag = $request->query('tag');
+        $isAskReady = $request->query('ask_ready');
+        $isShuffle = $request->query('shuffle');
 
         $questions = $repository->findByTag([
             'deck_id' => $deck->id,
             'tag' => $tag,
+            'isAskReady' => $isAskReady === 'true',
+            'isShuffle' => $isShuffle === 'true',
         ]);
 
-        return QuestionResource::collection($questions)->additional(['test' => true]);
+        return QuestionResource::collection($questions);
     }
 
     public function store(StoreQuestionRequest $request, Deck $deck, QuestionRepository $repository)

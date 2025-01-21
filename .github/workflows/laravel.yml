@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  laravel-tests:
+  project-validate:
 
     runs-on: ubuntu-latest
 
@@ -33,3 +33,5 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan test
+    - name: Execute phpstan for code analyze
+      run: ./vendor/bin/phpstan
