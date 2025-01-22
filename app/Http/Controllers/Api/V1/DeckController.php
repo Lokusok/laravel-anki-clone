@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Helpers\StrCleaner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Deck\StoreDeckRequest;
 use App\Http\Requests\Deck\UpdateDeckRequest;
@@ -27,6 +28,17 @@ class DeckController extends Controller
         Gate::authorize('show', $deck);
 
         return DeckResource::make($deck);
+    }
+
+    public function search(Request $request, DeckRepository $repository)
+    {
+        $deckId = $request->query('deck_id', '');
+
+        $decks = $repository->findById([
+            'deck_id' => StrCleaner::arraifyCommasSequence($deckId),
+        ]);
+
+        return DeckResource::collection($decks);
     }
 
     public function store(StoreDeckRequest $request, DeckRepository $repository)

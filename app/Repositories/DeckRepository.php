@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Deck;
+use Illuminate\Database\Eloquent\Collection;
 
 final class DeckRepository
 {
@@ -17,5 +18,15 @@ final class DeckRepository
         ]);
 
         return $deck;
+    }
+
+    /**
+     * @param array{deck_id: string[]} $attributes
+     */
+    public function findById(array $attributes): Collection
+    {
+        $decks = Deck::query()->whereIn('id', $attributes['deck_id'])->get();
+
+        return $decks;
     }
 }
