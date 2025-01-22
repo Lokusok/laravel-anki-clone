@@ -8,6 +8,7 @@ use App\Models\Deck;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 final class QuestionRepository
 {
@@ -99,30 +100,28 @@ final class QuestionRepository
 
     /**
      * Глобальный поиск
-     * @param array{deck_id: string, tag: string} $attributes
+     * @param array{deck_id: ?array<int, string>, tag: ?array<int, string>, query: ?string} $attributes
      */
     public function searchBy(array $attributes): Collection
     {
         $questions = Question::query();
 
-        if (isset($attributes['deck_id'])) {
-            $decksIds = array_map(
-                fn ($elem) => trim($elem),
-                preg_split('/,\s?/', $attributes['deck_id']),
-            );
-            $questions = $questions->whereIn('deck_id', $decksIds);
+        if (isset($attributes['deck_id']) && count($attributes['deck_id']) > 0) {
+            $questions = $questions->whereIn('deck_id', $attributes['deck_id']);
         }
 
-        if (isset($attributes['tag'])) {
+        if (isset($attributes['tag']) && count($attributes['tag']) > 0) {
             $questions = $questions->whereHas('tags', function ($query) use ($attributes) {
                 if (isset($attributes['tag'])) {
-                    $tags = array_map(
-                        fn ($elem) => trim($elem),
-                        preg_split('/,\s?/', $attributes['tag'])
-                    );
-                    $query->whereIn('title', $tags);
+                    $query->whereIn('title', $attributes['tag']);
                 }
             });
+        }
+
+        if (isset($attributes['query']) && ! empty($attributes['query'])) {
+            $questions = $questions
+                ->where('front', 'like', "%{$attributes['query']}%")
+                ->orWhere('back', 'like', "%{$attributes['query']}%");
         }
 
         $questions = $questions->get();

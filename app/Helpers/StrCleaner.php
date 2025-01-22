@@ -9,9 +9,13 @@ class StrCleaner
      */
     public static function arraifyCommasSequence(string $commasSequence): array
     {
-        return array_map(
+        $elems = array_map(
             fn ($elem) => trim($elem),
             preg_split('/,\s?/', $commasSequence)
         );
+
+        $result = array_filter($elems, fn ($elem) => strlen($elem) > 0);
+
+        return $result;
     }
 }

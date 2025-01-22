@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Helpers\StrCleaner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Question\StoreQuestionRequest;
 use App\Http\Requests\Question\UpdateQuestionRequest;
@@ -42,12 +43,14 @@ class QuestionController extends Controller
 
     public function search(Request $request, QuestionRepository $repository)
     {
-        $tag = $request->query('tag');
-        $deckId = $request->query('deck_id');
+        $tag = $request->query('tag', '');
+        $deckId = $request->query('deck_id', '');
+        $query = $request->query('query');
 
         $questions = $repository->searchBy([
-            'tag' => $tag,
-            'deck_id' => $deckId,
+            'tag' => StrCleaner::arraifyCommasSequence($tag),
+            'deck_id' => StrCleaner::arraifyCommasSequence($deckId),
+            'query' => $query,
         ]);
 
         return QuestionResource::collection($questions);
