@@ -12,7 +12,7 @@ class DeckPolicy
     {
         return $deck->user_id === $user->id
             ? Response::allow()
-            : Response::denyWithStatus(404, 'Такой коллекции не существует');
+            : Response::denyWithStatus(404, __('Такой коллекции не существует'));
     }
 
     public function viewQuestions(User $user, Deck $deck): Response

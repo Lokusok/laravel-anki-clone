@@ -7,8 +7,10 @@ use App\Http\Requests\Question\StoreQuestionRequest;
 use App\Http\Requests\Question\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Deck;
+use App\Models\Question;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class QuestionController extends Controller
@@ -29,6 +31,13 @@ class QuestionController extends Controller
         ]);
 
         return QuestionResource::collection($questions);
+    }
+
+    public function show(Deck $deck, Question $question)
+    {
+        Gate::authorize('viewQuestions', $deck);
+
+        return QuestionResource::make($question);
     }
 
     public function search(Request $request, QuestionRepository $repository)
@@ -62,6 +71,10 @@ class QuestionController extends Controller
         Gate::authorize('updateQuestion', $deck);
 
         $data = $request->validated();
+
+        $toDeck = Deck::find($data['deck_id']);
+
+        Gate::authorize('update', $toDeck);
 
         $question = $repository->update([
             'question_id' => $questionId,

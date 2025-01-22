@@ -16,6 +16,7 @@ class UpdateQuestionRequest extends FormRequest
         return [
             'front' => ['required', 'string'],
             'back' => ['required', 'string'],
+            'deck_id' => ['integer', 'exists:decks,id'],
             'tags' => ['array'],
             'tags.*' => ['string'],
         ];
@@ -28,6 +29,8 @@ class UpdateQuestionRequest extends FormRequest
             'front.string' => 'Вопрос должен быть строкой',
             'back.required' => 'Ответ обязателен',
             'back.string' => 'Ответ должен быть строкой',
+            'deck_id.integer' => 'Неверный формат коллекции',
+            'deck_id.exists' => 'Коллекции с указанным ID не существует',
             'tags.*' => 'Теги должны быть строкой',
         ];
     }
