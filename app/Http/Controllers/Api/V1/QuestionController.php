@@ -31,6 +31,19 @@ class QuestionController extends Controller
         return QuestionResource::collection($questions);
     }
 
+    public function search(Request $request, QuestionRepository $repository)
+    {
+        $tag = $request->query('tag');
+        $deckId = $request->query('deck_id');
+
+        $questions = $repository->searchBy([
+            'tag' => $tag,
+            'deck_id' => $deckId,
+        ]);
+
+        return QuestionResource::collection($questions);
+    }
+
     public function store(StoreQuestionRequest $request, Deck $deck, QuestionRepository $repository)
     {
         Gate::authorize('storeQuestion', $deck);

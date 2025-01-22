@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AnswerController;
 use App\Http\Controllers\Api\V1\DeckController;
 use App\Http\Controllers\Api\V1\QuestionController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -15,10 +16,15 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(QuestionController::class)->group(function () {
+        Route::get('/decks/questions/search', 'search')->name('questions.search');
         Route::get('/decks/{deck}/questions', 'index')->name('questions.index');
         Route::post('/decks/{deck}/questions', 'store')->name('questions.store');
         Route::match(['PUT', 'PATCH'], '/decks/{deck}/questions/{questionId}', 'update')->name('questions.update');
         Route::delete('/decks/{deck}/questions/{questionId}', 'destroy')->name('questions.destroy');
+    });
+
+    Route::controller(TagController::class)->group(function () {
+        Route::get('/tags', 'index')->name('tags.index');
     });
 
     Route::controller(AnswerController::class)->group(function () {

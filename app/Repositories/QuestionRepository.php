@@ -98,6 +98,39 @@ final class QuestionRepository
     }
 
     /**
+     * Глобальный поиск
+     * @param array{deck_id: string, tag: string} $attributes
+     */
+    public function searchBy(array $attributes): Collection
+    {
+        $questions = Question::query();
+
+        if (isset($attributes['deck_id'])) {
+            $decksIds = array_map(
+                fn ($elem) => trim($elem),
+                preg_split('/,\s?/', $attributes['deck_id']),
+            );
+            $questions = $questions->whereIn('deck_id', $decksIds);
+        }
+
+        if (isset($attributes['tag'])) {
+            $questions = $questions->whereHas('tags', function ($query) use ($attributes) {
+                if (isset($attributes['tag'])) {
+                    $tags = array_map(
+                        fn ($elem) => trim($elem),
+                        preg_split('/,\s?/', $attributes['tag'])
+                    );
+                    $query->whereIn('title', $tags);
+                }
+            });
+        }
+
+        $questions = $questions->get();
+
+        return $questions;
+    }
+
+    /**
      * @param  array{question_id: int, type: string}  $attributes
      */
     public function answerToQuestion(array $attributes): Question
