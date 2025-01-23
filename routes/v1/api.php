@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AnswerController;
 use App\Http\Controllers\Api\V1\DeckController;
+use App\Http\Controllers\Api\V1\OverallStatController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestionController;
 use App\Http\Controllers\Api\V1\TagController;
@@ -36,5 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(ProfileController::class)->group(function () {
         Route::match(['PUT', 'PATCH'], '/profile', 'update')->name('profile.update');
+    });
+
+    Route::controller(OverallStatController::class)->group(function () {
+        Route::get('/all/stats', 'index')->name('all_stats.index');
     });
 });
