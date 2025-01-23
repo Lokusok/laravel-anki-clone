@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AnswerController;
 use App\Http\Controllers\Api\V1\DeckController;
+use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestionController;
 use App\Http\Controllers\Api\V1\TagController;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(AnswerController::class)->group(function () {
         Route::post('/decks/{deck}/questions/{question}/answer', 'store')->name('answers.store');
+    });
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::match(['PUT', 'PATCH'], '/profile', 'update')->name('profile.update');
     });
 });
