@@ -17,6 +17,8 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        dd('here');
+
         $request->validate([
             'email' => ['required', 'email'],
         ]);
