@@ -65,6 +65,7 @@ class QuestionsTest extends TestCase
                 'front' => $this->faker->sentence(2),
                 'back' => $this->faker->sentence(2),
                 'tags' => ['php'],
+                'deck_id' => $this->deckId,
             ]
         );
 
@@ -134,6 +135,7 @@ class QuestionsTest extends TestCase
             'front' => $this->faker->sentence(2),
             'back' => $this->faker->sentence(2),
             'tags' => ['golang', 'python'],
+            'deck_id' => $deck->id,
         ];
 
         $response = $this->put(
@@ -142,6 +144,7 @@ class QuestionsTest extends TestCase
                 'front' => $newQuestion['front'],
                 'back' => $newQuestion['back'],
                 'tags' => $newQuestion['tags'],
+                'deck_id' => $newQuestion['deck_id'],
             ],
         );
 
