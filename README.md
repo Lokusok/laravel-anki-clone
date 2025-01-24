@@ -16,4 +16,4 @@
 
 ---
 
-Ссылка на [Frontend-часть](https://github.com/Lokusok/express-students-list)
+Ссылка на [Frontend-часть](https://github.com/Lokusok/frontend-anki-clone)

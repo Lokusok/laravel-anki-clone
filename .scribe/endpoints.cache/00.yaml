@@ -33,7 +33,7 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-origin: 'http://localhost:5173'
           access-control-allow-credentials: 'true'
         description: null
         custom: []
@@ -73,7 +73,98 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-origin: 'http://localhost:5173'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/decks/search
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:5173'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/decks/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the deck.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:5173'
           access-control-allow-credentials: 'true'
         description: null
         custom: []
@@ -108,14 +199,14 @@ endpoints:
         name: title
         description: ''
         required: true
-        example: ut
+        example: voluptas
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      title: ut
+      title: voluptas
     fileParameters: []
     responses: []
     responseFields: []
@@ -161,14 +252,14 @@ endpoints:
         name: title
         description: ''
         required: true
-        example: unde
+        example: amet
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      title: unde
+      title: amet
     fileParameters: []
     responses: []
     responseFields: []
@@ -221,6 +312,108 @@ endpoints:
   -
     httpMethods:
       - GET
+    uri: api/v1/decks/questions/search
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:5173'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/decks/{deck_id}/questions/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      deck_id:
+        name: deck_id
+        description: 'The ID of the deck.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      id:
+        name: id
+        description: 'The ID of the question.'
+        required: true
+        example: 13
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      deck_id: 1
+      id: 13
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:5173'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
     uri: 'api/v1/decks/{deck_id}/questions'
     metadata:
       groupName: Endpoints
@@ -259,7 +452,7 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-origin: 'http://localhost:5173'
           access-control-allow-credentials: 'true'
         description: null
         custom: []
@@ -305,7 +498,7 @@ endpoints:
         name: front
         description: ''
         required: true
-        example: sequi
+        example: nobis
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -315,7 +508,7 @@ endpoints:
         name: back
         description: ''
         required: true
-        example: cumque
+        example: maxime
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -326,17 +519,17 @@ endpoints:
         description: ''
         required: false
         example:
-          - perferendis
+          - dolorum
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      front: sequi
-      back: cumque
+      front: nobis
+      back: maxime
       tags:
-        - perferendis
+        - dolorum
     fileParameters: []
     responses: []
     responseFields: []
@@ -375,6 +568,32 @@ endpoints:
         custom: []
       questionId:
         name: questionId
+        description: ''
+        required: true
+        example: 11
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      deck_id: 1
+      questionId: 11
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      front:
+        name: front
+        description: ''
+        required: true
+        example: similique
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      back:
+        name: back
         description: ''
         required: true
         example: et
@@ -383,28 +602,12 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         custom: []
-    cleanUrlParameters:
-      deck_id: 1
-      questionId: et
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      front:
-        name: front
-        description: ''
-        required: true
-        example: minima
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      back:
-        name: back
-        description: ''
-        required: true
-        example: soluta
-        type: string
+      deck_id:
+        name: deck_id
+        description: 'The <code>id</code> of an existing record in the decks table.'
+        required: false
+        example: 13
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
@@ -414,17 +617,18 @@ endpoints:
         description: ''
         required: false
         example:
-          - dignissimos
+          - est
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      front: minima
-      back: soluta
+      front: similique
+      back: et
+      deck_id: 13
       tags:
-        - dignissimos
+        - est
     fileParameters: []
     responses: []
     responseFields: []
@@ -464,21 +668,61 @@ endpoints:
         name: questionId
         description: ''
         required: true
-        example: ea
-        type: string
+        example: 9
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanUrlParameters:
       deck_id: 1
-      questionId: ea
+      questionId: 9
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
     responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/tags
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:5173'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null
@@ -516,15 +760,15 @@ endpoints:
         name: question
         description: 'The question.'
         required: true
-        example: corporis
-        type: string
+        example: 13
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanUrlParameters:
       deck_id: 1
-      question: corporis
+      question: 13
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -532,7 +776,7 @@ endpoints:
         name: type
         description: ''
         required: true
-        example: easy
+        example: hard
         type: string
         enumValues:
           - easy
@@ -543,9 +787,102 @@ endpoints:
         nullable: false
         custom: []
     cleanBodyParameters:
-      type: easy
+      type: hard
     fileParameters: []
     responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: api/v1/profile
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: ''
+        required: true
+        example: aut
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: wtorp@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      name: aut
+      email: wtorp@example.org
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/all/stats
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:5173'
+          access-control-allow-credentials: 'true'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null

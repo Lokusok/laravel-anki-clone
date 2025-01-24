@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "API Documentation",
-        "_postman_id": "279a4745-54b5-40fc-8ce7-67137a902000",
+        "_postman_id": "ebc4731c-8970-4481-b0df-439026419a40",
         "description": "Read information about API",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -58,7 +58,7 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "http:\/\/localhost:3000"
+                                    "value": "http:\/\/localhost:5173"
                                 },
                                 {
                                     "key": "access-control-allow-credentials",
@@ -110,7 +110,119 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "http:\/\/localhost:3000"
+                                    "value": "http:\/\/localhost:5173"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/v1\/decks\/search",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/decks\/search",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/decks\/search"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:5173"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/v1\/decks\/{id}",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/decks\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/decks\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the deck."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:5173"
                                 },
                                 {
                                     "key": "access-control-allow-credentials",
@@ -145,7 +257,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"title\":\"ut\"}"
+                            "raw": "{\"title\":\"voluptas\"}"
                         },
                         "description": "",
                         "auth": {
@@ -184,7 +296,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"title\":\"unde\"}"
+                            "raw": "{\"title\":\"amet\"}"
                         },
                         "description": "",
                         "auth": {
@@ -228,6 +340,124 @@
                         }
                     },
                     "response": []
+                },
+                {
+                    "name": "GET api\/v1\/decks\/questions\/search",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/decks\/questions\/search",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/decks\/questions\/search"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:5173"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/v1\/decks\/{deck_id}\/questions\/{id}",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/decks\/:deck_id\/questions\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/decks\/:deck_id\/questions\/:id",
+                            "variable": [
+                                {
+                                    "id": "deck_id",
+                                    "key": "deck_id",
+                                    "value": "1",
+                                    "description": "The ID of the deck."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "13",
+                                    "description": "The ID of the question."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:5173"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "GET api\/v1\/decks\/{deck_id}\/questions",
@@ -276,7 +506,7 @@
                                 },
                                 {
                                     "key": "access-control-allow-origin",
-                                    "value": "http:\/\/localhost:3000"
+                                    "value": "http:\/\/localhost:5173"
                                 },
                                 {
                                     "key": "access-control-allow-credentials",
@@ -319,7 +549,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"front\":\"sequi\",\"back\":\"cumque\",\"tags\":[\"perferendis\"]}"
+                            "raw": "{\"front\":\"nobis\",\"back\":\"maxime\",\"tags\":[\"dolorum\"]}"
                         },
                         "description": "",
                         "auth": {
@@ -346,7 +576,7 @@
                                 {
                                     "id": "questionId",
                                     "key": "questionId",
-                                    "value": "et",
+                                    "value": "11",
                                     "description": ""
                                 }
                             ]
@@ -364,7 +594,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"front\":\"minima\",\"back\":\"soluta\",\"tags\":[\"dignissimos\"]}"
+                            "raw": "{\"front\":\"similique\",\"back\":\"et\",\"deck_id\":13,\"tags\":[\"est\"]}"
                         },
                         "description": "",
                         "auth": {
@@ -391,7 +621,7 @@
                                 {
                                     "id": "questionId",
                                     "key": "questionId",
-                                    "value": "ea",
+                                    "value": "9",
                                     "description": ""
                                 }
                             ]
@@ -416,6 +646,58 @@
                     "response": []
                 },
                 {
+                    "name": "GET api\/v1\/tags",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/tags",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/tags"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:5173"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
                     "name": "POST api\/v1\/decks\/{deck_id}\/questions\/{question}\/answer",
                     "request": {
                         "url": {
@@ -433,7 +715,7 @@
                                 {
                                     "id": "question",
                                     "key": "question",
-                                    "value": "corporis",
+                                    "value": "13",
                                     "description": "The question."
                                 }
                             ]
@@ -451,7 +733,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"type\":\"easy\"}"
+                            "raw": "{\"type\":\"hard\"}"
                         },
                         "description": "",
                         "auth": {
@@ -459,6 +741,89 @@
                         }
                     },
                     "response": []
+                },
+                {
+                    "name": "PUT api\/v1\/profile",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/profile",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/profile"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"aut\",\"email\":\"wtorp@example.org\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET api\/v1\/all\/stats",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/all\/stats",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/all\/stats"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "http:\/\/localhost:5173"
+                                },
+                                {
+                                    "key": "access-control-allow-credentials",
+                                    "value": "true"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         }
