@@ -10,10 +10,12 @@ return new class extends Migration
     {
         Schema::create('decks', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique('idx_title_unique');
+            $table->string('title');
             $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('title', 'idx_title');
         });
     }
 
