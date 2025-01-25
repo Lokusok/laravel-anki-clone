@@ -1,4 +1,28 @@
 services:
+    php-fpm:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+        networks:
+            - lemp
+        volumes:
+            - ./:/usr/share/nginx/html
+
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - 8080:80
+        volumes:
+            - ./:/usr/share/nginx/html
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        networks:
+            - lemp
+        depends_on:
+            - php-fpm
+
     mysql:
         image: mysql:latest
         restart: always
@@ -6,6 +30,20 @@ services:
             - ./db/mysql:/var/lib/mysql
         ports:
             - 4242:3306
+        networks:
+            - lemp
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=laravel
+
+    redis:
+        image: redis:latest
+        restart: always
+        ports:
+            - 6677:6379
+        networks:
+            - lemp
+
+networks:
+    lemp:
+        driver: bridge
