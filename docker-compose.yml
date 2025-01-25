@@ -29,7 +29,7 @@ services:
         volumes:
             - ./db/mysql:/var/lib/mysql
         ports:
-            - 4242:3306
+            - 3306:3306
         networks:
             - lemp
         environment:
@@ -40,7 +40,7 @@ services:
         image: redis:latest
         restart: always
         ports:
-            - 6677:6379
+            - 6379:6379
         networks:
             - lemp
 

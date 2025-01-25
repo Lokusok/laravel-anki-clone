@@ -15,8 +15,15 @@
 ## Запуск проекта
 
 1. `docker compose up --build`
-2. `docker compose exec php-fpm php artisan key:generate`
-3. `docker compose exec php-fpm php artisan migrate`
+2. `docker compose exec php-fpm composer install`
+3. `docker compose exec php-fpm chmod -R 777 ./`
+4. `docker compose exec php-fpm php artisan key:generate`
+5. `docker compose exec php-fpm php artisan migrate`
+
+#### Для тестов:
+
+1. `docker compose exec php-fpm php artisan migrate --seed --env=testing`
+2. `docker compose exec php-fpm php artisan test`
 
 ---
 
