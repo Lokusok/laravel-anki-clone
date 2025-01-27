@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Gate;
 
 class DeckController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request) 
     {
         $search = $request->query('title');
 
@@ -30,7 +30,7 @@ class DeckController extends Controller
         return DeckResource::make($deck);
     }
 
-    public function search(Request $request, DeckRepository $repository)
+    public function search(Request $request, DeckRepository $repository) 
     {
         $deckId = $request->query('deck_id', '');
 

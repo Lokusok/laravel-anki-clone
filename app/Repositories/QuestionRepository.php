@@ -8,7 +8,6 @@ use App\Models\Deck;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 final class QuestionRepository
 {
@@ -100,7 +99,8 @@ final class QuestionRepository
 
     /**
      * Глобальный поиск
-     * @param array{deck_id: ?array<int, string>, tag: ?array<int, string>, query: ?string} $attributes
+     *
+     * @param  array{deck_id: ?array<int, string>, tag: ?array<int, string>, query: ?string}  $attributes
      */
     public function searchBy(array $attributes): Collection
     {
@@ -135,7 +135,7 @@ final class QuestionRepository
     public function answerToQuestion(array $attributes): Question
     {
         $question = DB::transaction(function () use ($attributes) {
-            $key = 'count_' . $attributes['type'];
+            $key = 'count_'.$attributes['type'];
 
             $question = Question::find($attributes['question_id']);
 

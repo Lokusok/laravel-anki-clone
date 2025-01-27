@@ -18,7 +18,7 @@ class Deck extends Model
 
     public function scopeByTitle(Builder $query, ?string $title): void
     {
-        if (!empty($title)) {
+        if (! empty($title)) {
             $query->where('title', 'like', "%{$title}%");
         }
     }

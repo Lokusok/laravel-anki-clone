@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 final class DeckRepository
 {
     /**
-     * @param array{title: string, user_id: int} $attributes
+     * @param  array{title: string, user_id: int}  $attributes
      */
     public function create(array $attributes): Deck
     {
@@ -28,7 +28,7 @@ final class DeckRepository
     }
 
     /**
-     * @param array{deck_id: string[]} $attributes
+     * @param  array{deck_id: string[]}  $attributes
      */
     public function findById(array $attributes): Collection
     {
