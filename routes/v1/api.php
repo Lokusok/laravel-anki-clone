@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\V1\QuestionController;
 use App\Http\Controllers\Api\V1\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->middleware('throttle:120,1')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
     Route::controller(DeckController::class)->group(function () {
         Route::get('/decks', 'index')->name('decks.index');
         Route::get('/decks/search', 'search')->name('decks.search');
